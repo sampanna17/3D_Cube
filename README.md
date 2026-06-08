@@ -2,8 +2,6 @@
 
 An interactive 3D Rubik's Cube built with React, TypeScript and Vite. Explore, scramble, and solve the cube in-browser with GPU-accelerated rendering and a web-worker powered solver.
 
-![Demo placeholder](public/demo-placeholder.png)
-
 ## Live demo
 - Run locally (see below) or deploy to GitHub Pages / Netlify / Vercel for a public demo.
 
