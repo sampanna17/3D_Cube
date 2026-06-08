@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+@import "tailwindcss";
+
+:root {
+  --font-sans: 'Outfit', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #020617; /* Slate 950 */
+  overflow: hidden;
+  font-family: var(--font-sans);
+}
+
+/* Hide default Vite page centering styling if present */
+#root {
+  width: 100vw;
+  max-width: 100%;
+  margin: 0;
+  text-align: left;
+  border-inline: none;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+/* Custom scrollbar for high-end look */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.3);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(99, 102, 241, 0.15);
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(99, 102, 241, 0.45);
+}
+
+/* Custom range input styling */
+input[type="range"]::-webkit-slider-thumb {
+  box-shadow: 0 0 12px rgba(99, 102, 241, 0.6);
+  border: 2px solid #ffffff;
+}
+
+input[type="range"]::-moz-range-thumb {
+  box-shadow: 0 0 12px rgba(99, 102, 241, 0.6);
+  border: 2px solid #ffffff;
+}
+
+/* Radial gradient background */
+.bg-radial-gradient {
+  background: radial-gradient(circle at center, var(--tw-gradient-from) 0%, var(--tw-gradient-to) 100%);
+}
+
+kbd {
+  font-family: var(--font-mono);
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}
