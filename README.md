@@ -1,73 +1,66 @@
-# React + TypeScript + Vite
+# 3D Cube — Interactive Rubik's Cube
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An interactive 3D Rubik's Cube built with React, TypeScript and Vite. Explore, scramble, and solve the cube in-browser with GPU-accelerated rendering and a web-worker powered solver.
 
-Currently, two official plugins are available:
+![Demo placeholder](public/demo-placeholder.png)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Live demo
+- Run locally (see below) or deploy to GitHub Pages / Netlify / Vercel for a public demo.
 
-## React Compiler
+## Features
+- Interactive 3D cube rendered with CSS/WebGL-friendly transforms
+- Click-and-drag to rotate the cube and faces
+- Scramble generator and visual step-by-step solver (worker-based)
+- Solver panel with controls to scramble, solve, and step through moves
+- Modular React + TypeScript codebase designed for experimentation
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Quickstart
 
-## Expanding the ESLint configuration
+Install dependencies and run the dev server:
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Build for production:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run build
+npm run preview
 ```
+
+## Controls
+- Drag the cube to orbit the camera.
+- Use the on-screen `SolverPanel` to scramble, solve, or step through moves.
+-- The project includes `solver.worker.ts` to keep heavy computation off the main thread.
+
+## Project structure
+
+- `src/` — application source
+  - `components/` — UI and cube components (e.g. `RubiksCube.tsx`, `SolverPanel.tsx`)
+  - `hooks/` — custom hooks such as `useCubeState.ts`
+  - `solver/` — solver implementation and `solver.worker.ts`
+  - `types/` — type definitions
+
+## Where to look
+- The cube rendering and interaction live in `src/components/RubiksCube.tsx` and `src/components/Cubie.tsx`.
+- Solver logic is in `src/solver/solverService.ts` and `src/solver/solver.worker.ts`.
+
+## Development tips
+- The solver runs in a web worker; open the DevTools to inspect messages between the main thread and worker.
+- To add new cube algorithms, extend the solver module and expose the moves to the `SolverPanel`.
+
+## Contributing
+- Contributions welcome — open an issue or a pull request.
+- Please keep changes focused and add tests for any new solver logic.
+
+## License
+- Choose a license for your project (e.g., MIT). Add `LICENSE` to the repo and update this section.
+
+## Acknowledgements
+- Built with Vite + React + TypeScript.
+
+---
+
+If you'd like, I can add a demo GIF, badges, or a short contributor guide next.
