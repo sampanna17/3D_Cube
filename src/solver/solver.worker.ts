@@ -1,4 +1,4 @@
-import Cube from 'cubejs';
+import Cube from './cubejs-local';
 
 // Initialize the solver when the worker starts
 let isInitialized = false;

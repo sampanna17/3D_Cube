@@ -1,9 +1,9 @@
 export class SolverService {
   private worker: Worker | null = null;
   private initResolver: (() => void) | null = null;
-  private initRejecter: ((err: any) => void) | null = null;
+  private initRejecter: ((err: unknown) => void) | null = null;
   private solveResolver: ((solution: string) => void) | null = null;
-  private solveRejecter: ((err: any) => void) | null = null;
+  private solveRejecter: ((err: unknown) => void) | null = null;
   private statusListeners: Set<(status: 'uninitialized' | 'initializing' | 'ready' | 'error') => void> = new Set();
   
   public status: 'uninitialized' | 'initializing' | 'ready' | 'error' = 'uninitialized';
@@ -26,10 +26,28 @@ export class SolverService {
         { type: 'module' }
       );
 
+      this.worker.onerror = (errorEvent: ErrorEvent) => {
+        console.error('Solver Worker Error Event:', errorEvent);
+        const errorMsg = errorEvent.message || 'Unknown worker load/runtime error';
+        if (this.status === 'initializing') {
+          this.status = 'error';
+          this.notifyListeners();
+          if (this.initRejecter) {
+            this.initRejecter(new Error(errorMsg));
+            this.initResolver = null;
+            this.initRejecter = null;
+          }
+        } else if (this.solveRejecter) {
+          this.solveRejecter(new Error(errorMsg));
+          this.solveResolver = null;
+          this.solveRejecter = null;
+        }
+      };
+
       this.worker.onmessage = (event: MessageEvent) => {
         const { type, payload } = event.data;
 
-        switch (type === 'ERROR' ? 'ERROR' : type) {
+        switch (type) {
           case 'INIT_COMPLETE':
             this.status = 'ready';
             this.notifyListeners();
@@ -49,7 +67,7 @@ export class SolverService {
             break;
 
           case 'ERROR':
-            console.error('Solver Worker Error:', payload);
+            console.error('Solver Worker Error payload:', payload);
             if (this.status === 'initializing') {
               this.status = 'error';
               this.notifyListeners();
@@ -95,7 +113,7 @@ export class SolverService {
           if (oldResolver) oldResolver();
           resolve();
         };
-        this.initRejecter = (err) => {
+        this.initRejecter = (err: unknown) => {
           if (oldRejecter) oldRejecter(err);
           reject(err);
         };

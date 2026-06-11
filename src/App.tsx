@@ -19,6 +19,7 @@ function App() {
     isAutoPlaying,
     solveSpeed,
     error,
+    isCubeSolved,
     setSolveSpeed,
     applyMove,
     undo,
@@ -92,7 +93,6 @@ function App() {
         {/* Desktop Sidebar (1/3 width, hidden on mobile) */}
         <div className="hidden md:block w-[380px] lg:w-[420px] shrink-0 h-full">
           <SolverPanel
-            solverStatus={solverStatus}
             history={history}
             currentIndex={currentIndex}
             activeMove={activeMove}
@@ -103,6 +103,7 @@ function App() {
             isAutoPlaying={isAutoPlaying}
             solveSpeed={solveSpeed}
             error={error}
+            isCubeSolved={isCubeSolved}
             setSolveSpeed={setSolveSpeed}
             applyMove={applyMove}
             undo={undo}
@@ -149,7 +150,6 @@ function App() {
               </div>
               <div className="flex-1 overflow-hidden">
                 <SolverPanel
-                  solverStatus={solverStatus}
                   history={history}
                   currentIndex={currentIndex}
                   activeMove={activeMove}
@@ -160,6 +160,7 @@ function App() {
                   isAutoPlaying={isAutoPlaying}
                   solveSpeed={solveSpeed}
                   error={error}
+                  isCubeSolved={isCubeSolved}
                   setSolveSpeed={setSolveSpeed}
                   applyMove={applyMove}
                   undo={undo}
