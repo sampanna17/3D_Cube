@@ -52,13 +52,11 @@ export function useCubeState() {
   const solveSpeedRef = useRef(solveSpeed);
   const currentSolutionIndexRef = useRef(currentSolutionIndex);
   const solutionRef = useRef(solution);
-  const moveQueueRef = useRef(moveQueue);
 
   useEffect(() => { isAutoPlayingRef.current = isAutoPlaying; }, [isAutoPlaying]);
   useEffect(() => { solveSpeedRef.current = solveSpeed; }, [solveSpeed]);
   useEffect(() => { currentSolutionIndexRef.current = currentSolutionIndex; }, [currentSolutionIndex]);
   useEffect(() => { solutionRef.current = solution; }, [solution]);
-  useEffect(() => { moveQueueRef.current = moveQueue; }, [moveQueue]);
   useEffect(() => { currentIndexRef.current = currentIndex; }, [currentIndex]);
   useEffect(() => { activeMoveRef.current = activeMove; }, [activeMove]);
   useEffect(() => { moveQueueLengthRef.current = moveQueue.length; }, [moveQueue.length]);
@@ -120,9 +118,8 @@ export function useCubeState() {
         return next;
       });
       setCurrentIndex((prev) => prev + 1);
-    } else {
-      // undoRedo — just visually animate; history/currentIndex were already adjusted by caller
     }
+    // 'undoRedo' — visual animation only; history/currentIndex already adjusted by caller
   }, [queueMove]);
 
   // Undo — walk backwards by replaying the inverse of the last applied move
@@ -344,9 +341,7 @@ export function useCubeState() {
     });
   }, [solution.length, currentSolutionIndex]);
 
-  // Derived: the moves actually applied to the physical cube right now
-  const appliedMoves = history.slice(0, currentIndex + 1);
-  const isCubeSolved = appliedMoves.length === 0;
+  const isCubeSolved = currentIndex < 0;
 
   return {
     solverStatus,
